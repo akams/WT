@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
+
 
 var app = express();
 
@@ -21,7 +21,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+app.get('/', function(req, res) {
+    res.render('index');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -40,5 +42,8 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+app.listen(8080);
+console.log('8080 is the magic port for the WT application !');
 
 module.exports = app;
